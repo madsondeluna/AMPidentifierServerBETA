@@ -1,14 +1,19 @@
-# Core libraries for data science and machine learning
-numpy
-pandas
-scikit-learn
-joblib
+# Web server
+Flask==3.0.0
+flask-cors==4.0.0
+gunicorn==21.2.0
 
-# Library for bioinformatics
-biopython
+# Data science and machine learning
+numpy==1.26.4
+pandas==2.1.4
+scikit-learn==1.3.2
+joblib==1.3.2
+
+# Bioinformatics
+biopython==1.83
 
 # AMP-specific feature calculation
-modlAMP
+modlAMP==4.3.0
 
-# Library for testing
+# Testing (not needed in production, but harmless to include)
 pytest

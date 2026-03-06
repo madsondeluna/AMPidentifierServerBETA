@@ -14,10 +14,10 @@ import io
 # Add parent directory to path to import amp_identifier modules
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from amp_identifier.core import run_prediction
-from amp_identifier.data_io import read_fasta
+from amp_identifier.core import run_prediction_pipeline
+from amp_identifier.data_io import load_fasta_sequences
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 # Example FASTA sequence
@@ -48,51 +48,48 @@ def predict():
         # Get input data
         fasta_text = request.form.get('fasta_sequence', '').strip()
         model_choice = request.form.get('model', 'ensemble')
-        
+
         if not fasta_text:
             return jsonify({'error': 'No FASTA sequence provided'}), 400
-        
+
         # Create temporary directory for processing
         with tempfile.TemporaryDirectory() as temp_dir:
             # Save FASTA to temporary file
             fasta_path = os.path.join(temp_dir, 'input.fasta')
             with open(fasta_path, 'w') as f:
                 f.write(fasta_text)
-            
+
             # Validate FASTA format
             try:
-                sequences = read_fasta(fasta_path)
+                sequences, seq_ids = load_fasta_sequences(fasta_path)
                 if not sequences:
                     return jsonify({'error': 'Invalid FASTA format or empty file'}), 400
             except Exception as e:
                 return jsonify({'error': f'FASTA parsing error: {str(e)}'}), 400
-            
+
             # Set up output directory
             output_dir = os.path.join(temp_dir, 'results')
             os.makedirs(output_dir, exist_ok=True)
-            
+
             # Run prediction based on model choice
-            if model_choice == 'ensemble':
-                run_prediction(
-                    input_fasta=fasta_path,
-                    output_dir=output_dir,
-                    use_ensemble=True
-                )
-            else:
-                run_prediction(
-                    input_fasta=fasta_path,
-                    output_dir=output_dir,
-                    model_choice=model_choice,
-                    use_ensemble=False
-                )
-            
+            use_ensemble = model_choice == 'ensemble'
+            internal_model_type = 'rf' if use_ensemble else model_choice
+
+            run_prediction_pipeline(
+                input_file=fasta_path,
+                output_dir=output_dir,
+                internal_model_type=internal_model_type,
+                use_ensemble=use_ensemble,
+                external_model_paths=[]
+            )
+
             # Read results
             features_path = os.path.join(output_dir, 'physicochemical_features.csv')
             predictions_path = os.path.join(output_dir, 'prediction_comparison_report.csv')
-            
+
             features_df = pd.read_csv(features_path)
             predictions_df = pd.read_csv(predictions_path)
-            
+
             # Prepare response data
             response_data = {
                 'success': True,
@@ -104,9 +101,9 @@ def predict():
                 'features_columns': list(features_df.columns),
                 'predictions_columns': list(predictions_df.columns)
             }
-            
+
             return jsonify(response_data)
-            
+
     except Exception as e:
         return jsonify({'error': f'Prediction error: {str(e)}'}), 500
 
@@ -116,16 +113,13 @@ def download(data_type):
     """Download results as CSV or PDF"""
     try:
         data = request.json.get('data', [])
-        
+
         if not data:
             return jsonify({'error': 'No data provided'}), 400
-        
-        # Convert to DataFrame
+
         df = pd.DataFrame(data)
-        
-        # Create file in memory
         output = io.BytesIO()
-        
+
         if data_type == 'csv':
             df.to_csv(output, index=False)
             output.seek(0)
@@ -137,7 +131,7 @@ def download(data_type):
             )
         else:
             return jsonify({'error': 'Invalid download type'}), 400
-            
+
     except Exception as e:
         return jsonify({'error': f'Download error: {str(e)}'}), 500
 
@@ -149,4 +143,5 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
