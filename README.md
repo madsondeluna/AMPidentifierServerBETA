@@ -1,4 +1,4 @@
-# AMPidentifier — Web Server (BETA)
+# AMPidentifier Web Server (BETA)
 
 > **This is the web portal / server version of AMPidentifier.**
 > It is currently in **beta** and under active development.
@@ -9,23 +9,17 @@
 [![INPI](https://img.shields.io/badge/INPI-BR%2051%202025%20005859--4-green.svg)](https://www.gov.br/inpi)
 [![Status](https://img.shields.io/badge/status-beta-orange.svg)]()
 
----
-
 ## Live application
 
 **[https://ampidentifierserver.onrender.com](https://ampidentifierserver.onrender.com)**
 
-> **Note on availability:** To conserve computational resources, the server enters a sleep state after 15 minutes of inactivity. When a new request is made, it automatically wakes up and redeploys — typically becoming fully functional within **1–2 minutes**. No manual action is required.
-
----
+> **Note on availability:** To conserve computational resources, the server enters a sleep state after 15 minutes of inactivity. When a new request is made, it automatically wakes up and redeploys, typically becoming fully functional within **1 to 2 minutes**. No manual action is required.
 
 ## What is this?
 
 This repository hosts the **Flask-based web interface** for AMPidentifier, allowing users to submit FASTA sequences and receive AMP predictions directly in a browser — no installation required.
 
 The prediction engine is the same ensemble ML pipeline (RF + SVM + Gradient Boosting) from the CLI version, running on a cloud server.
-
----
 
 ## Features
 
@@ -39,15 +33,13 @@ The prediction engine is the same ensemble ML pipeline (RF + SVM + Gradient Boos
 | **CSV download** | Export results as a `.csv` file with one click |
 | **Load example** | Pre-loads 10 curated sequences (5 known AMPs + 5 non-AMPs) for quick testing |
 
----
-
 ## How to use
 
 1. Open **[https://ampidentifierserver.onrender.com](https://ampidentifierserver.onrender.com)**
 2. Paste your sequences in **FASTA format** into the text area, or click **load example** to use the built-in dataset
 3. Select a **model** from the dropdown (Ensemble is recommended)
 4. Click **Run**
-5. View the results table — each sequence will show its classification (**AMP** or **non-AMP**) and probability score
+5. View the results table, each sequence will show its classification (**AMP** or **non-AMP**) and probability score
 6. Click **download CSV** to export the results
 
 ### FASTA format example
@@ -56,8 +48,6 @@ The prediction engine is the same ensemble ML pipeline (RF + SVM + Gradient Boos
 >SequenceID|Protein_name|Organism|Description
 AMINOACIDSEQUENCE
 ```
-
----
 
 ## Original CLI project
 
@@ -71,8 +61,6 @@ Use the CLI version if you need:
 - Custom model comparison (external `.pkl` files)
 - Full parameter control and pipeline integration
 
----
-
 ## Technology stack
 
 | Layer | Technology |
@@ -85,8 +73,6 @@ Use the CLI version if you need:
 | **Web server** | Gunicorn |
 | **Hosting** | Render.com |
 
----
-
 ## Running locally
 
 ```bash
@@ -98,8 +84,6 @@ python wsgi.py
 
 Then open `http://localhost:5000`.
 
----
-
 ## Issues and feedback
 
 Found a bug or have a suggestion? Open an issue at:
@@ -107,21 +91,15 @@ Found a bug or have a suggestion? Open an issue at:
 
 Developer: [madsondeluna@gmail.com](mailto:madsondeluna@gmail.com)
 
----
-
 ## Ownership
 
 This application is a property of the **Universidade Federal de Pernambuco (UFPE)** and the **Laboratory of Plant Genetics and Biotechnology (LGBV)**.
 
----
-
 ## Citation
 
-Luna-Aragão, M. A., da Silva, R. L., Pacífico, J., Santos-Silva, C. A. & Benko‑Iseppon, A. M. (2025).
+Luna-Aragão, M. A., da Silva, R. L., Pacífico, J., Santos-Silva, C. A. & Benko-Iseppon, A. M. (2025).
 AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
 GitHub repository. https://github.com/madsondeluna/AMPIdentifier
-
----
 
 ## License
 
