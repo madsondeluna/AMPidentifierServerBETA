@@ -50,7 +50,7 @@ PAGE = """<!DOCTYPE html>
   .upload-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
   .upload-btn {
     background: transparent; color: #bbb; border: 1px solid #e8e8e8;
-    font-size: 0.72rem; padding: 5px 12px; font-weight: normal;
+    font-size: 0.82rem; padding: 10px 28px; font-weight: normal;
     font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
   }
   .upload-btn:hover { color: #555; border-color: #ccc; }
@@ -78,7 +78,7 @@ PAGE = """<!DOCTYPE html>
   .filter-row { display: flex; gap: 8px; margin-bottom: 12px; }
   .filter-btn {
     background: transparent; color: #aaa; border: 1px solid #e0e0e0;
-    font-size: 0.72rem; padding: 5px 14px; font-weight: normal;
+    font-size: 0.82rem; padding: 10px 28px; font-weight: normal;
     font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
   }
   .filter-btn:hover { color: #333; border-color: #bbb; background: transparent; }
@@ -93,12 +93,12 @@ PAGE = """<!DOCTYPE html>
   .prob-fill { height: 100%; border-radius: 3px; }
   .prob-text { font-size: 0.75rem; color: #666; }
   .dl { margin-top: 16px; display: flex; gap: 8px; }
-  .dl button { background: transparent; color: #aaa; border: 1px solid #e0e0e0; font-size: 0.72rem; padding: 6px 16px; font-weight: normal; }
+  .dl button { background: transparent; color: #aaa; border: 1px solid #e0e0e0; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
   .dl button:hover { color: #333; border-color: #bbb; background: transparent; }
   .err { color: #dc2626; font-size: 0.8rem; }
-  .example-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.72rem; padding: 5px 12px; margin-left: auto; font-weight: normal; }
+  .example-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.82rem; padding: 10px 28px; margin-left: auto; font-weight: normal; }
   .example-btn:hover { color: #555; border-color: #ccc; background: transparent; }
-  .clear-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.72rem; padding: 5px 12px; font-weight: normal; }
+  .clear-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
   .clear-btn:hover { color: #dc2626; border-color: #dc2626; background: transparent; }
 </style>
 </head>
