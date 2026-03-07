@@ -104,7 +104,7 @@ PAGE = """<!DOCTYPE html>
   .non { color: #dc2626; }
   .prob-cell { white-space: nowrap; min-width: 120px; }
   .prob-bar { display: inline-block; width: 56px; height: 6px; background: #efefef; border-radius: 3px; vertical-align: middle; margin-right: 6px; overflow: hidden; }
-  .prob-fill { height: 100%; border-radius: 3px; }
+  .prob-fill { display: block; height: 100%; border-radius: 3px; }
   .prob-text { font-size: 0.75rem; color: #666; }
   .dl { margin-top: 16px; display: flex; gap: 8px; }
   .dl button { background: #059669; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
@@ -157,7 +157,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
     <p>Luna-Aragão, M. A., da Silva, R. L., Pacífico, J., Santos-Silva, C. A. &amp; Benko&#8209;Iseppon, A. M. (2025).
     AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
     GitHub repository. <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">https://github.com/madsondeluna/AMPIdentifier</a></p>
-    <p style="margin-top:8px;">This application is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratório de Genética e Biotecnologia Vegetal (LGBV)</strong>.</p>
+    <p style="margin-top:8px;">This application is registered at <strong style="color:#555;">INPI</strong> and is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratório de Genética e Biotecnologia Vegetal (LGBV)</strong>.</p>
     <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/madsondeluna/AMPidentifierServerBETA/issues" target="_blank">Report an issue</a> &nbsp;·&nbsp; <span style="color:#bbb;">v{{ version }}</span></p>
   </footer>
 </div>
