@@ -17,7 +17,7 @@
 
 ## What is this?
 
-This repository hosts the **Flask-based web interface** for AMPidentifier, allowing users to submit FASTA sequences and receive AMP predictions directly in a browser — no installation required.
+This repository hosts the **Flask-based web interface** for AMPidentifier, allowing users to submit FASTA sequences and receive AMP predictions directly in a browser, with no installation required.
 
 The prediction engine is the same ensemble ML pipeline (RF + SVM + Gradient Boosting) from the CLI version, running on a cloud server.
 
@@ -67,7 +67,7 @@ Use the CLI version if you need:
 |---|---|
 | **Backend** | Python 3.11, Flask 3.0 |
 | **ML models** | scikit-learn (Random Forest, SVM, Gradient Boosting) |
-| **Feature extraction** | modlAMP — physicochemical descriptors |
+| **Feature extraction** | modlAMP, physicochemical descriptors |
 | **Sequence parsing** | Biopython |
 | **Data handling** | pandas, numpy |
 | **Web server** | Gunicorn |
@@ -103,6 +103,6 @@ GitHub repository. https://github.com/madsondeluna/AMPIdentifier
 
 ## License
 
-This software is protected under Brazilian intellectual property law with registration at the **Instituto Nacional da Propriedade Industrial (INPI)** — registration no. **BR 51 2025 005859-4**.
+This software is protected under Brazilian intellectual property law with registration at the **Instituto Nacional da Propriedade Industrial (INPI)**, registration no. **BR 51 2025 005859-4**.
 
 Unauthorized reproduction, distribution, or commercial use without explicit permission from the authors is prohibited.
