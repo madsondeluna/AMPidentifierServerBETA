@@ -323,9 +323,9 @@ function renderResults(data) {
       '</div>' +
     '</div>' +
     '<div class="filter-row">' +
-      '<button class="filter-btn active" id="fAll" onclick="applyFilter(\'all\')">All</button>' +
-      '<button class="filter-btn" id="fAmp" onclick="applyFilter(\'amp\')">AMP only</button>' +
-      '<button class="filter-btn" id="fNon" onclick="applyFilter(\'non\')">Non-AMP only</button>' +
+      '<button class="filter-btn active" id="fAll" onclick="applyFilter(\\'all\\')">All</button>' +
+      '<button class="filter-btn" id="fAmp" onclick="applyFilter(\\'amp\\')">AMP only</button>' +
+      '<button class="filter-btn" id="fNon" onclick="applyFilter(\\'non\\')">Non-AMP only</button>' +
     '</div>' +
     '<table id="tbl">' +
       '<thead><tr><th>ID</th><th>Sequence</th><th>Prediction</th><th>Prob. AMP</th></tr></thead>' +
