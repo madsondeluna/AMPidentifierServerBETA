@@ -6,7 +6,6 @@
 
 [![Live](https://img.shields.io/badge/live-ampidentifierserver.onrender.com-success)](https://ampidentifierserver.onrender.com)
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![INPI](https://img.shields.io/badge/INPI-BR%2051%202025%20005859--4-green.svg)](https://www.gov.br/inpi)
 [![Status](https://img.shields.io/badge/status-beta-orange.svg)]()
 
@@ -126,4 +125,6 @@ GitHub repository. https://github.com/madsondeluna/AMPIdentifier
 
 ## License
 
-MIT
+This software is protected under Brazilian intellectual property law with registration at the **Instituto Nacional da Propriedade Industrial (INPI)** — registration no. **BR 51 2025 005859-4**.
+
+Unauthorized reproduction, distribution, or commercial use without explicit permission from the authors is prohibited.
