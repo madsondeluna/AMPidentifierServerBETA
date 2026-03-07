@@ -355,8 +355,7 @@ function renderResults(data) {
       '<strong>Interpretation note:</strong> Predictions are computed from physicochemical and compositional descriptors derived from the primary amino acid sequence. ' +
       'For higher predictive power, use <strong>Ensemble mode</strong> (RF\u202f+\u202fSVM\u202f+\u202fGB), which combines three independent classifiers by majority vote and achieves ' +
       '<strong>Accuracy:\u202f87.47%</strong>, <strong>Sensitivity:\u202f85.96%</strong>, and <strong>Specificity:\u202f88.98%</strong> on the validation set. ' +
-      'Bear in mind that proteins whose primary function is not antimicrobial activity may still harbour potential antimicrobial features in specific sequence regions — ' +
-      'particularly in cases where such activity has not yet been fully characterised or reported in the literature.' +
+      'Bear in mind that proteins whose primary function is not antimicrobial activity may still harbour potential antimicrobial features in specific sequence regions.' +
     '</div>';
 }
 
