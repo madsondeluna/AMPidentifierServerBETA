@@ -109,7 +109,7 @@ PAGE = """<!DOCTYPE html>
     <span class="status-dot" id="statusDot" title="Checking server..."></span>
   </div>
   <p class="sub">A Python-based toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.</p>
-  <p class="notice">For advanced parameter control — custom models, batch processing, and pipeline integration — use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a>.</p>
+  <p class="notice">For advanced parameter control use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a>.</p>
 
   <div class="label-row">
     <label>FASTA sequences</label>
