@@ -4,6 +4,7 @@ AMPidentifier Web Portal — minimal single-page app
 import os
 import sys
 import tempfile
+import subprocess
 
 from flask import Flask, request, jsonify, render_template_string
 import pandas as pd
@@ -11,6 +12,19 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from amp_identifier.core import run_prediction_pipeline
 from amp_identifier.data_io import load_fasta_sequences
+
+def _get_version():
+    try:
+        count = subprocess.check_output(
+            ['git', 'rev-list', '--count', 'HEAD'],
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        return f"1.0.{count}"
+    except Exception:
+        return "1.0.0"
+
+VERSION = _get_version()
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -144,7 +158,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
     AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
     GitHub repository. <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">https://github.com/madsondeluna/AMPIdentifier</a></p>
     <p style="margin-top:8px;">This application is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratório de Genética e Biotecnologia Vegetal (LGBV)</strong>.</p>
-    <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/madsondeluna/AMPidentifierServerBETA/issues" target="_blank">Report an issue</a></p>
+    <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/madsondeluna/AMPidentifierServerBETA/issues" target="_blank">Report an issue</a> &nbsp;·&nbsp; <span style="color:#bbb;">v{{ version }}</span></p>
   </footer>
 </div>
 
@@ -385,7 +399,7 @@ function copyTable() {
 
 @app.route('/')
 def index():
-    return render_template_string(PAGE)
+    return render_template_string(PAGE, version=VERSION)
 
 
 @app.route('/health')
