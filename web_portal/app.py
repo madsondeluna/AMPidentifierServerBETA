@@ -149,18 +149,20 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
 </div>
 
 {% raw %}<script>
-const EXAMPLE = `>Magainin-2|Xenopus_laevis|Cationic_amphipathic_helix
-GIGKFLHSAKKFGKAFVGEIMNS
->LL-37|Homo_sapiens|Cathelicidin_family
-LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES
->Melittin|Apis_mellifera|Venom_peptide
-GIGAVLKVLTTGLPALISWIKRKRQQ
->Insulin_Chain_B|Homo_sapiens|Peptide_hormone
-FVNQHLCGSHLVEALYLVCGERGFFYTPKT
->Glucagon|Homo_sapiens|Peptide_hormone
-HSQGTFTSDYSKYLDSRRAQDFVQWLMNT
->Vasoactive_intestinal_peptide|Homo_sapiens|Neuropeptide
-HSDAVFTDNYTRLRKQMAVKKYLNSILN`;
+const EXAMPLE = [
+  ">Magainin-2|Xenopus_laevis|Cationic_amphipathic_helix",
+  "GIGKFLHSAKKFGKAFVGEIMNS",
+  ">LL-37|Homo_sapiens|Cathelicidin_family",
+  "LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES",
+  ">Melittin|Apis_mellifera|Venom_peptide",
+  "GIGAVLKVLTTGLPALISWIKRKRQQ",
+  ">Insulin_Chain_B|Homo_sapiens|Peptide_hormone",
+  "FVNQHLCGSHLVEALYLVCGERGFFYTPKT",
+  ">Glucagon|Homo_sapiens|Peptide_hormone",
+  "HSQGTFTSDYSKYLDSRRAQDFVQWLMNT",
+  ">Vasoactive_intestinal_peptide|Homo_sapiens|Neuropeptide",
+  "HSDAVFTDNYTRLRKQMAVKKYLNSILN"
+].join("\\n");
 
 const VALID_AA = /^[ACDEFGHIKLMNPQRSTVWYBXZUOJ*-]+$/i;
 let lastData = null;
@@ -235,7 +237,7 @@ function handleFileUpload(e) {
 function loadExample() {
   document.getElementById('fasta').value = EXAMPLE;
   updateCounter();
-  validateFasta();
+  document.getElementById('validationErr').textContent = '';
 }
 
 function clearAll() {
