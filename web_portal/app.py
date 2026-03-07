@@ -28,7 +28,13 @@ PAGE = """<!DOCTYPE html>
   body { font-family: 'Courier New', monospace; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; padding: 48px 24px; }
   .wrap { max-width: 760px; margin: 0 auto; }
   h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.1em; color: #fff; margin-bottom: 4px; }
-  .sub { font-size: 0.78rem; color: #666; margin-bottom: 40px; }
+  .sub { font-size: 0.78rem; color: #666; margin-bottom: 16px; }
+  .notice { font-size: 0.75rem; color: #555; border-left: 2px solid #2a2a2a; padding: 8px 12px; margin-bottom: 32px; line-height: 1.6; }
+  .notice a { color: #888; text-decoration: underline; }
+  .notice a:hover { color: #ccc; }
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #1e1e1e; font-size: 0.7rem; color: #444; line-height: 1.8; }
+  footer a { color: #555; text-decoration: underline; }
+  footer a:hover { color: #aaa; }
   label { font-size: 0.75rem; color: #888; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
   textarea {
     width: 100%; height: 180px; background: #1a1a1a; border: 1px solid #2a2a2a;
@@ -72,7 +78,8 @@ PAGE = """<!DOCTYPE html>
 <body>
 <div class="wrap">
   <h1>AMPidentifier</h1>
-  <p class="sub">Antimicrobial peptide prediction via machine learning</p>
+  <p class="sub">AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.</p>
+  <p class="notice">For advanced parameter control — custom models, batch processing, and pipeline integration — use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a>.</p>
 
   <label>FASTA sequences</label>
   <textarea id="fasta" placeholder=">SequenceID
@@ -91,15 +98,37 @@ KRIVQRIKDFLRNLVPRTES"></textarea>
 
   <div id="status"></div>
   <div id="results"></div>
+
+  <footer>
+    <p>Luna-Aragão, M. A., da Silva, R. L., Pacífico, J., Santos-Silva, C. A. &amp; Benko&#8209;Iseppon, A. M. (2025).
+    AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
+    GitHub repository. <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">https://github.com/madsondeluna/AMPIdentifier</a></p>
+    <p style="margin-top:8px;">This application is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratory of Plant Genetics and Biotechnology (LGBV)</strong>.</p>
+    <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/madsondeluna/AMPidentifierServerBETA/issues" target="_blank">Report an issue</a></p>
+  </footer>
 </div>
 
 <script>
-const EXAMPLE = `>AMP1_HUMAN
-KRIVQRIKDFLRNLVPRTES
->DEF1_PHAVU
-RTCESQSHKFKGQCRDDFCYTKQCVVNKACHVGGRCVKPFCCK
->DEF1_HUMAN
-DCYCRIPACIAGERRYGTCIYQGRLWAFCC`;
+const EXAMPLE = `>AMP_1|Magainin-2|Xenopus_laevis|Cationic_amphipathic_helix
+GIGKFLHSAKKFGKAFVGEIMNS
+>AMP_2|LL-37|Homo_sapiens|Cathelicidin_family
+LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES
+>AMP_3|Melittin|Apis_mellifera|Venom_peptide
+GIGAVLKVLTTGLPALISWIKRKRQQ
+>AMP_4|Cecropin_A|Hyalophora_cecropia|Antimicrobial_peptide
+KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK
+>AMP_5|Indolicidin|Bos_taurus|Trp_Pro_rich
+ILPWKWPWWPWRR
+>Non_AMP_1|Insulin_Chain_B|Homo_sapiens|Peptide_hormone
+FVNQHLCGSHLVEALYLVCGERGFFYTPKT
+>Non_AMP_2|Serum_Albumin|Homo_sapiens|Globular_transport_protein
+MKWVTFISLLFLFSSAYSRGVFRRDAHKSEVAHRFKDLGEENFKALVLIAFAQYLQQCPFEDHVKLVNEVTEFAKTCVADESAENCDKSLHTLFGDKLCTVATLRETYGEMADCCAKQEPERNECFLQHKDDNPNLPRLVRPEVDVMCTAFHDNEETFLKKYLYEIARRHPYFYAPELLFFAKRYKAAFTECCQAADKAACLLPKLDELRDEGKASSAKQRLKCASLQKFGERAFKAWAVARLSQRFPKAEFAEVSKLVTDLTKVHTECCHGDLLECADDRADLAKYICENQDSISSKLKECCEKPLLEKSHCIAEVENDEMPADLPSLAADFVESKDVCKNYAEAKDVFLGMFLYEYARRHPDYSVVLLLRLAKTYETTLEKCCAAADPHECYAKVFDEFKPLVEEPQNLIKQNCELFEQLGEYKFQNALLVRYTKKVPQVSTPTLVEVSRNLGKVGSKCCKHPEAKRMPCAEDYLSVVLNQLCVLHEKTPVSDRVTKCCTESLVNRRPCFSALEVDETYVPKEFNAETFTFHADICTLSEKERQIKKQTALVELVKHKPKATKEQLKAVMDDFAAFVEKCCKADDKETCFAEEGKKLVAASQAALGL
+>Non_AMP_3|Hemoglobin_Subunit_Alpha|Homo_sapiens|Oxygen_transport
+MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTPAVHASLDKFLASVSTVLTSKYR
+>Non_AMP_4|Cytochrome_c|Saccharomyces_cerevisiae|Electron_transport
+TEFKAGSAKKGATLFKTRCLQCHTVEKGGPHKVGPNLHGIFGRHSGQAEGYSYTDANIKKNVLWDENNMSEYLTNPKKYIPGTKMAFGGLKKEKDRNDLITYLKKACE
+>Non_AMP_5|Ubiquitin|Homo_sapiens|Protein_degradation_tag
+MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG`;
 
 let lastData = null;
 
