@@ -26,21 +26,27 @@ The prediction engine is the same ensemble ML pipeline (RF + SVM + Gradient Boos
 | Feature | Description |
 |---|---|
 | **Sequence input** | Paste one or multiple sequences in FASTA format directly into the browser |
-| **Model selection** | Choose between Ensemble (RF + SVM + GB), Random Forest, SVM, or Gradient Boosting individually |
+| **File upload** | Upload a `.fasta` file directly, no copy-paste needed |
+| **Sequence counter** | Real-time count of sequences detected as the user types |
+| **FASTA validation** | Format is validated before submission, with informative error messages |
+| **Model selection** | Choose between Ensemble (RF + SVM + GB), Random Forest, SVM, or Gradient Boosting |
 | **AMP / non-AMP classification** | Each sequence is classified as antimicrobial peptide or non-AMP |
-| **Probability score** | Displays the predicted probability of each sequence being an AMP |
-| **Results table** | Interactive table with ID, sequence, classification, and probability |
+| **Probability score** | Predicted probability displayed with a visual color-coded bar |
+| **Results filter** | Filter the results table by All, AMP only, or non-AMP only |
 | **CSV download** | Export results as a `.csv` file with one click |
-| **Load example** | Pre-loads 10 curated sequences (5 known AMPs + 5 non-AMPs) for quick testing |
+| **Copy table** | Copy results to clipboard as tab-separated values |
+| **Load example** | Pre-loads 6 curated sequences for quick testing |
+| **Server status** | Live indicator (green/red dot) showing whether the server is online |
 
 ## How to use
 
 1. Open **[https://ampidentifierserver.onrender.com](https://ampidentifierserver.onrender.com)**
-2. Paste your sequences in **FASTA format** into the text area, or click **load example** to use the built-in dataset
+2. Paste sequences in **FASTA format** into the text area, upload a `.fasta` file, or click **load example**
 3. Select a **model** from the dropdown (Ensemble is recommended)
 4. Click **Run**
-5. View the results table, each sequence will show its classification (**AMP** or **non-AMP**) and probability score
-6. Click **download CSV** to export the results
+5. View the results table with classification (**AMP** or **non-AMP**), probability score, and visual bar
+6. Use the **filter buttons** to show only AMP or non-AMP predictions
+7. Click **download CSV** to export, or **copy table** to copy results to the clipboard
 
 ### FASTA format example
 
@@ -93,7 +99,7 @@ Developer: [madsondeluna@gmail.com](mailto:madsondeluna@gmail.com)
 
 ## Ownership
 
-This application is a property of the **Universidade Federal de Pernambuco (UFPE)** and the **Laboratory of Plant Genetics and Biotechnology (LGBV)**.
+This application is a property of the **Universidade Federal de Pernambuco (UFPE)** and the **Laboratório de Genética e Biotecnologia Vegetal (LGBV)**.
 
 ## Citation
 
