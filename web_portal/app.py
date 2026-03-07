@@ -110,6 +110,7 @@ PAGE = """<!DOCTYPE html>
   .dl { margin-top: 16px; display: flex; gap: 8px; }
   .dl button { background: #059669; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
   .dl button:hover { background: #047857; }
+  .result-note { margin-top: 20px; font-size: 0.72rem; color: #999; border-left: 2px solid #e0e0e0; padding: 10px 14px; line-height: 1.7; }
   .err { color: #dc2626; font-size: 0.8rem; }
   .example-btn { background: #2563eb; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; margin-left: auto; font-weight: normal; }
   .example-btn:hover { background: #1d4ed8; }
@@ -349,6 +350,13 @@ function renderResults(data) {
     '<div class="dl">' +
       '<button onclick="downloadCSV()">Download CSV</button>' +
       '<button id="copyBtn" onclick="copyTable()">Copy table</button>' +
+    '</div>' +
+    '<div class="result-note">' +
+      '<strong>Interpretation note:</strong> Predictions are computed from physicochemical and compositional descriptors derived from the primary amino acid sequence. ' +
+      'For higher predictive power, use <strong>Ensemble mode</strong> (RF\u202f+\u202fSVM\u202f+\u202fGB), which combines three independent classifiers by majority vote and achieves ' +
+      '<strong>Accuracy:\u202f87.47%</strong>, <strong>Sensitivity:\u202f85.96%</strong>, and <strong>Specificity:\u202f88.98%</strong> on the validation set. ' +
+      'Bear in mind that proteins whose primary function is not antimicrobial activity may still harbour potential antimicrobial features in specific sequence regions — ' +
+      'particularly in cases where such activity has not yet been fully characterised or reported in the literature.' +
     '</div>';
 }
 
