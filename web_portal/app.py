@@ -25,54 +25,56 @@ PAGE = """<!DOCTYPE html>
 <title>AMPidentifier</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Courier New', monospace; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; padding: 48px 24px; }
+  body { font-family: 'Courier New', monospace; background: #ffffff; color: #1a1a1a; min-height: 100vh; padding: 48px 24px; }
   .wrap { max-width: 760px; margin: 0 auto; }
-  h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.1em; color: #fff; margin-bottom: 4px; }
-  .sub { font-size: 0.78rem; color: #666; margin-bottom: 16px; }
-  .notice { font-size: 0.75rem; color: #555; border-left: 2px solid #2a2a2a; padding: 8px 12px; margin-bottom: 32px; line-height: 1.6; }
-  .notice a { color: #888; text-decoration: underline; }
-  .notice a:hover { color: #ccc; }
-  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #1e1e1e; font-size: 0.7rem; color: #444; line-height: 1.8; }
-  footer a { color: #555; text-decoration: underline; }
-  footer a:hover { color: #aaa; }
-  label { font-size: 0.75rem; color: #888; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+  h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 4px; }
+  .sub { font-size: 0.78rem; color: #888; margin-bottom: 16px; }
+  .notice { font-size: 0.75rem; color: #999; border-left: 2px solid #ddd; padding: 8px 12px; margin-bottom: 32px; line-height: 1.6; }
+  .notice a { color: #555; text-decoration: underline; }
+  .notice a:hover { color: #111; }
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #e8e8e8; font-size: 0.7rem; color: #aaa; line-height: 1.8; }
+  footer a { color: #999; text-decoration: underline; }
+  footer a:hover { color: #333; }
+  label { font-size: 0.75rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
   textarea {
-    width: 100%; height: 180px; background: #1a1a1a; border: 1px solid #2a2a2a;
-    color: #e0e0e0; font-family: 'Courier New', monospace; font-size: 0.82rem;
+    width: 100%; height: 180px; background: #f7f7f7; border: 1px solid #e0e0e0;
+    color: #1a1a1a; font-family: 'Courier New', monospace; font-size: 0.82rem;
     padding: 14px; resize: vertical; outline: none; border-radius: 4px;
   }
-  textarea:focus { border-color: #444; }
+  textarea:focus { border-color: #bbb; }
   .row { display: flex; gap: 12px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
   select {
-    background: #1a1a1a; border: 1px solid #2a2a2a; color: #e0e0e0;
+    background: #f7f7f7; border: 1px solid #e0e0e0; color: #1a1a1a;
     font-family: 'Courier New', monospace; font-size: 0.82rem; padding: 10px 14px;
     border-radius: 4px; outline: none;
   }
   button {
-    background: #e0e0e0; color: #0f0f0f; border: none; padding: 10px 28px;
+    background: #1a1a1a; color: #ffffff; border: none; padding: 10px 28px;
     font-family: 'Courier New', monospace; font-size: 0.82rem; cursor: pointer;
     border-radius: 4px; font-weight: bold; letter-spacing: 0.05em;
   }
-  button:hover { background: #fff; }
-  button:disabled { background: #444; color: #666; cursor: not-allowed; }
-  #status { font-size: 0.78rem; color: #666; margin-top: 20px; min-height: 18px; }
+  button:hover { background: #333; }
+  button:disabled { background: #ccc; color: #888; cursor: not-allowed; }
+  #status { font-size: 0.78rem; color: #999; margin-top: 20px; min-height: 18px; }
   #results { margin-top: 32px; }
-  .summary { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; padding: 20px; margin-bottom: 20px; }
+  .summary { background: #f7f7f7; border: 1px solid #e8e8e8; border-radius: 4px; padding: 20px; margin-bottom: 20px; }
   .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
   .stat { text-align: center; }
-  .stat-val { font-size: 1.8rem; color: #fff; }
-  .stat-label { font-size: 0.7rem; color: #666; margin-top: 2px; }
+  .stat-val { font-size: 1.8rem; color: #0f0f0f; }
+  .stat-label { font-size: 0.7rem; color: #aaa; margin-top: 2px; }
   table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
-  th { text-align: left; color: #666; font-weight: normal; padding: 8px 10px; border-bottom: 1px solid #2a2a2a; letter-spacing: 0.06em; text-transform: uppercase; }
-  td { padding: 10px 10px; border-bottom: 1px solid #1a1a1a; color: #ccc; word-break: break-all; }
-  .amp { color: #6ee7b7; }
-  .non { color: #f87171; }
-  .dl { margin-top: 16px; }
-  .dl button { background: transparent; color: #888; border: 1px solid #2a2a2a; font-size: 0.72rem; padding: 6px 16px; }
-  .dl button:hover { color: #fff; border-color: #444; background: transparent; }
-  .err { color: #f87171; font-size: 0.8rem; margin-top: 16px; }
-  .example-btn { background: transparent; color: #555; border: 1px solid #222; font-size: 0.72rem; padding: 5px 12px; margin-left: auto; }
-  .example-btn:hover { color: #aaa; border-color: #444; background: transparent; }
+  th { text-align: left; color: #aaa; font-weight: normal; padding: 8px 10px; border-bottom: 1px solid #e8e8e8; letter-spacing: 0.06em; text-transform: uppercase; }
+  td { padding: 10px 10px; border-bottom: 1px solid #f0f0f0; color: #444; word-break: break-all; }
+  .amp { color: #059669; }
+  .non { color: #dc2626; }
+  .dl { margin-top: 16px; display: flex; gap: 8px; }
+  .dl button { background: transparent; color: #aaa; border: 1px solid #e0e0e0; font-size: 0.72rem; padding: 6px 16px; font-weight: normal; }
+  .dl button:hover { color: #333; border-color: #bbb; background: transparent; }
+  .err { color: #dc2626; font-size: 0.8rem; margin-top: 16px; }
+  .example-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.72rem; padding: 5px 12px; margin-left: auto; font-weight: normal; }
+  .example-btn:hover { color: #555; border-color: #ccc; background: transparent; }
+  .clear-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.72rem; padding: 5px 12px; font-weight: normal; }
+  .clear-btn:hover { color: #dc2626; border-color: #dc2626; background: transparent; }
 </style>
 </head>
 <body>
@@ -93,6 +95,7 @@ KRIVQRIKDFLRNLVPRTES"></textarea>
       <option value="gb">Gradient Boosting</option>
     </select>
     <button id="runBtn" onclick="runPrediction()">Run</button>
+    <button class="clear-btn" onclick="clearAll()">clear</button>
     <button class="example-btn" onclick="loadExample()">load example</button>
   </div>
 
@@ -134,6 +137,13 @@ let lastData = null;
 
 function loadExample() {
   document.getElementById('fasta').value = EXAMPLE;
+}
+
+function clearAll() {
+  document.getElementById('fasta').value = '';
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('status').textContent = '';
+  lastData = null;
 }
 
 async function runPrediction() {
@@ -191,8 +201,8 @@ function renderResults(data) {
       <label>Results — ${data.model}</label>
       <div class="summary-grid">
         <div class="stat"><div class="stat-val">${total}</div><div class="stat-label">sequences</div></div>
-        <div class="stat"><div class="stat-val" style="color:#6ee7b7">${amps}</div><div class="stat-label">predicted AMP</div></div>
-        <div class="stat"><div class="stat-val" style="color:#f87171">${total - amps}</div><div class="stat-label">predicted non-AMP</div></div>
+        <div class="stat"><div class="stat-val" style="color:#059669">${amps}</div><div class="stat-label">predicted AMP</div></div>
+        <div class="stat"><div class="stat-val" style="color:#dc2626">${total - amps}</div><div class="stat-label">predicted non-AMP</div></div>
       </div>
     </div>
     <table>
