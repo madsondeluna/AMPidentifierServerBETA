@@ -36,6 +36,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMPidentifier</title>
 <style>
+  html { font-size: 17px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Courier New', monospace; background: #ffffff; color: #1a1a1a; min-height: 100vh; padding: 48px 24px; }
   .wrap { max-width: 760px; margin: 0 auto; }
