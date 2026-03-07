@@ -108,7 +108,7 @@ PAGE = """<!DOCTYPE html>
     <h1>AMPidentifier</h1>
     <span class="status-dot" id="statusDot" title="Checking server..."></span>
   </div>
-  <p class="sub">AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.</p>
+  <p class="sub">A Python-based toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.</p>
   <p class="notice">For advanced parameter control — custom models, batch processing, and pipeline integration — use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a>.</p>
 
   <div class="label-row">
