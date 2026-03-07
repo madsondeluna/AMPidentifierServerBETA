@@ -121,7 +121,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
 
   <div class="upload-row">
     <input type="file" id="fileInput" accept=".fasta,.fa,.txt" onchange="handleFileUpload(event)">
-    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">upload .fasta</button>
+    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Upload .fasta</button>
   </div>
 
   <div class="row">
@@ -132,8 +132,8 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
       <option value="gb">Gradient Boosting</option>
     </select>
     <button id="runBtn" onclick="runPrediction()">Run</button>
-    <button class="clear-btn" onclick="clearAll()">clear</button>
-    <button class="example-btn" onclick="loadExample()">load example</button>
+    <button class="clear-btn" onclick="clearAll()">Clear</button>
+    <button class="example-btn" onclick="loadExample()">Load example</button>
   </div>
 
   <div id="status"></div>
@@ -148,7 +148,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
   </footer>
 </div>
 
-<script>
+{% raw %}<script>
 const EXAMPLE = `>Magainin-2|Xenopus_laevis|Cationic_amphipathic_helix
 GIGKFLHSAKKFGKAFVGEIMNS
 >LL-37|Homo_sapiens|Cathelicidin_family
@@ -324,15 +324,15 @@ function renderResults(data) {
     '<div class="filter-row">' +
       '<button class="filter-btn active" id="fAll" onclick="applyFilter(\'all\')">All</button>' +
       '<button class="filter-btn" id="fAmp" onclick="applyFilter(\'amp\')">AMP only</button>' +
-      '<button class="filter-btn" id="fNon" onclick="applyFilter(\'non\')">non-AMP only</button>' +
+      '<button class="filter-btn" id="fNon" onclick="applyFilter(\'non\')">Non-AMP only</button>' +
     '</div>' +
     '<table id="tbl">' +
       '<thead><tr><th>ID</th><th>Sequence</th><th>Prediction</th><th>Prob. AMP</th></tr></thead>' +
       '<tbody>' + preds.map(makeRow).join('') + '</tbody>' +
     '</table>' +
     '<div class="dl">' +
-      '<button onclick="downloadCSV()">download CSV</button>' +
-      '<button id="copyBtn" onclick="copyTable()">copy table</button>' +
+      '<button onclick="downloadCSV()">Download CSV</button>' +
+      '<button id="copyBtn" onclick="copyTable()">Copy table</button>' +
     '</div>';
 }
 
@@ -373,11 +373,11 @@ function copyTable() {
   ].join('\\n');
   navigator.clipboard.writeText(tsv).then(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = 'copied!';
-    setTimeout(() => btn.textContent = 'copy table', 1500);
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy table', 1500);
   }).catch(() => alert('Copy not supported in this browser.'));
 }
-</script>
+</script>{% endraw %}
 </body>
 </html>"""
 
