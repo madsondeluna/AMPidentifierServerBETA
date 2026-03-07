@@ -49,11 +49,11 @@ PAGE = """<!DOCTYPE html>
   .validation-err { font-size: 0.73rem; color: #dc2626; margin-top: 6px; min-height: 16px; }
   .upload-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
   .upload-btn {
-    background: transparent; color: #bbb; border: 1px solid #e8e8e8;
+    background: #555555; color: #ffffff; border: none;
     font-size: 0.82rem; padding: 10px 28px; font-weight: normal;
     font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
   }
-  .upload-btn:hover { color: #555; border-color: #ccc; }
+  .upload-btn:hover { background: #444444; }
   #fileInput { display: none; }
   .row { display: flex; gap: 12px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
   select {
@@ -77,12 +77,12 @@ PAGE = """<!DOCTYPE html>
   .stat-label { font-size: 0.7rem; color: #aaa; margin-top: 2px; }
   .filter-row { display: flex; gap: 8px; margin-bottom: 12px; }
   .filter-btn {
-    background: transparent; color: #aaa; border: 1px solid #e0e0e0;
+    background: #6b7280; color: #ffffff; border: none;
     font-size: 0.82rem; padding: 10px 28px; font-weight: normal;
     font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
   }
-  .filter-btn:hover { color: #333; border-color: #bbb; background: transparent; }
-  .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .filter-btn:hover { background: #4b5563; }
+  .filter-btn.active { background: #1a1a1a; color: #fff; }
   table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
   th { text-align: left; color: #aaa; font-weight: normal; padding: 8px 10px; border-bottom: 1px solid #e8e8e8; letter-spacing: 0.06em; text-transform: uppercase; }
   td { padding: 10px 10px; border-bottom: 1px solid #f0f0f0; color: #444; word-break: break-all; }
@@ -93,13 +93,13 @@ PAGE = """<!DOCTYPE html>
   .prob-fill { height: 100%; border-radius: 3px; }
   .prob-text { font-size: 0.75rem; color: #666; }
   .dl { margin-top: 16px; display: flex; gap: 8px; }
-  .dl button { background: transparent; color: #aaa; border: 1px solid #e0e0e0; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
-  .dl button:hover { color: #333; border-color: #bbb; background: transparent; }
+  .dl button { background: #059669; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
+  .dl button:hover { background: #047857; }
   .err { color: #dc2626; font-size: 0.8rem; }
-  .example-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.82rem; padding: 10px 28px; margin-left: auto; font-weight: normal; }
-  .example-btn:hover { color: #555; border-color: #ccc; background: transparent; }
-  .clear-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
-  .clear-btn:hover { color: #dc2626; border-color: #dc2626; background: transparent; }
+  .example-btn { background: #2563eb; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; margin-left: auto; font-weight: normal; }
+  .example-btn:hover { background: #1d4ed8; }
+  .clear-btn { background: #dc2626; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
+  .clear-btn:hover { background: #b91c1c; }
 </style>
 </head>
 <body>
