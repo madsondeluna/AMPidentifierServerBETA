@@ -228,7 +228,7 @@ function handleFileUpload(e) {
   reader.onload = ev => {
     document.getElementById('fasta').value = ev.target.result;
     updateCounter();
-    validateFasta();
+    document.getElementById('validationErr').textContent = '';
   };
   reader.readAsText(file);
 }
@@ -252,7 +252,6 @@ function clearAll() {
 
 // ── Prediction ─────────────────────────────────────────────────
 async function runPrediction() {
-  if (!validateFasta()) return;
   const fasta  = document.getElementById('fasta').value.trim();
   const model  = document.getElementById('model').value;
   const btn    = document.getElementById('runBtn');
