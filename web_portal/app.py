@@ -4,11 +4,9 @@ AMPidentifier Web Portal — minimal single-page app
 import os
 import sys
 import tempfile
-from datetime import datetime
 
-from flask import Flask, request, jsonify, render_template_string, send_file
+from flask import Flask, request, jsonify, render_template_string
 import pandas as pd
-import io
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from amp_identifier.core import run_prediction_pipeline
@@ -27,7 +25,11 @@ PAGE = """<!DOCTYPE html>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Courier New', monospace; background: #ffffff; color: #1a1a1a; min-height: 100vh; padding: 48px 24px; }
   .wrap { max-width: 760px; margin: 0 auto; }
-  h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 4px; }
+  .title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.1em; color: #0f0f0f; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; flex-shrink: 0; transition: background 0.4s; cursor: default; }
+  .status-dot.online  { background: #059669; }
+  .status-dot.offline { background: #dc2626; }
   .sub { font-size: 0.78rem; color: #888; margin-bottom: 16px; }
   .notice { font-size: 0.75rem; color: #999; border-left: 2px solid #ddd; padding: 8px 12px; margin-bottom: 32px; line-height: 1.6; }
   .notice a { color: #555; text-decoration: underline; }
@@ -35,13 +37,24 @@ PAGE = """<!DOCTYPE html>
   footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #e8e8e8; font-size: 0.7rem; color: #aaa; line-height: 1.8; }
   footer a { color: #999; text-decoration: underline; }
   footer a:hover { color: #333; }
-  label { font-size: 0.75rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+  .label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  label { font-size: 0.75rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; }
+  .seq-counter { font-size: 0.72rem; color: #bbb; }
   textarea {
     width: 100%; height: 180px; background: #f7f7f7; border: 1px solid #e0e0e0;
     color: #1a1a1a; font-family: 'Courier New', monospace; font-size: 0.82rem;
     padding: 14px; resize: vertical; outline: none; border-radius: 4px;
   }
   textarea:focus { border-color: #bbb; }
+  .validation-err { font-size: 0.73rem; color: #dc2626; margin-top: 6px; min-height: 16px; }
+  .upload-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .upload-btn {
+    background: transparent; color: #bbb; border: 1px solid #e8e8e8;
+    font-size: 0.72rem; padding: 5px 12px; font-weight: normal;
+    font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
+  }
+  .upload-btn:hover { color: #555; border-color: #ccc; }
+  #fileInput { display: none; }
   .row { display: flex; gap: 12px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
   select {
     background: #f7f7f7; border: 1px solid #e0e0e0; color: #1a1a1a;
@@ -62,15 +75,27 @@ PAGE = """<!DOCTYPE html>
   .stat { text-align: center; }
   .stat-val { font-size: 1.8rem; color: #0f0f0f; }
   .stat-label { font-size: 0.7rem; color: #aaa; margin-top: 2px; }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .filter-btn {
+    background: transparent; color: #aaa; border: 1px solid #e0e0e0;
+    font-size: 0.72rem; padding: 5px 14px; font-weight: normal;
+    font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
+  }
+  .filter-btn:hover { color: #333; border-color: #bbb; background: transparent; }
+  .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
   table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
   th { text-align: left; color: #aaa; font-weight: normal; padding: 8px 10px; border-bottom: 1px solid #e8e8e8; letter-spacing: 0.06em; text-transform: uppercase; }
   td { padding: 10px 10px; border-bottom: 1px solid #f0f0f0; color: #444; word-break: break-all; }
   .amp { color: #059669; }
   .non { color: #dc2626; }
+  .prob-cell { white-space: nowrap; min-width: 120px; }
+  .prob-bar { display: inline-block; width: 56px; height: 6px; background: #efefef; border-radius: 3px; vertical-align: middle; margin-right: 6px; overflow: hidden; }
+  .prob-fill { height: 100%; border-radius: 3px; }
+  .prob-text { font-size: 0.75rem; color: #666; }
   .dl { margin-top: 16px; display: flex; gap: 8px; }
   .dl button { background: transparent; color: #aaa; border: 1px solid #e0e0e0; font-size: 0.72rem; padding: 6px 16px; font-weight: normal; }
   .dl button:hover { color: #333; border-color: #bbb; background: transparent; }
-  .err { color: #dc2626; font-size: 0.8rem; margin-top: 16px; }
+  .err { color: #dc2626; font-size: 0.8rem; }
   .example-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.72rem; padding: 5px 12px; margin-left: auto; font-weight: normal; }
   .example-btn:hover { color: #555; border-color: #ccc; background: transparent; }
   .clear-btn { background: transparent; color: #bbb; border: 1px solid #e8e8e8; font-size: 0.72rem; padding: 5px 12px; font-weight: normal; }
@@ -79,13 +104,25 @@ PAGE = """<!DOCTYPE html>
 </head>
 <body>
 <div class="wrap">
-  <h1>AMPidentifier</h1>
+  <div class="title-row">
+    <h1>AMPidentifier</h1>
+    <span class="status-dot" id="statusDot" title="Checking server..."></span>
+  </div>
   <p class="sub">AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.</p>
   <p class="notice">For advanced parameter control — custom models, batch processing, and pipeline integration — use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a>.</p>
 
-  <label>FASTA sequences</label>
+  <div class="label-row">
+    <label>FASTA sequences</label>
+    <span class="seq-counter" id="seqCounter"></span>
+  </div>
   <textarea id="fasta" placeholder=">SequenceID
-KRIVQRIKDFLRNLVPRTES"></textarea>
+KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
+  <div id="validationErr" class="validation-err"></div>
+
+  <div class="upload-row">
+    <input type="file" id="fileInput" accept=".fasta,.fa,.txt" onchange="handleFileUpload(event)">
+    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">upload .fasta</button>
+  </div>
 
   <div class="row">
     <select id="model">
@@ -106,50 +143,117 @@ KRIVQRIKDFLRNLVPRTES"></textarea>
     <p>Luna-Aragão, M. A., da Silva, R. L., Pacífico, J., Santos-Silva, C. A. &amp; Benko&#8209;Iseppon, A. M. (2025).
     AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
     GitHub repository. <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">https://github.com/madsondeluna/AMPIdentifier</a></p>
-    <p style="margin-top:8px;">This application is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratory of Plant Genetics and Biotechnology (LGBV)</strong>.</p>
+    <p style="margin-top:8px;">This application is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratório de Genética e Biotecnologia Vegetal (LGBV)</strong>.</p>
     <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/madsondeluna/AMPidentifierServerBETA/issues" target="_blank">Report an issue</a></p>
   </footer>
 </div>
 
 <script>
-const EXAMPLE = `>AMP_1|Magainin-2|Xenopus_laevis|Cationic_amphipathic_helix
+const EXAMPLE = `>Magainin-2|Xenopus_laevis|Cationic_amphipathic_helix
 GIGKFLHSAKKFGKAFVGEIMNS
->AMP_2|LL-37|Homo_sapiens|Cathelicidin_family
+>LL-37|Homo_sapiens|Cathelicidin_family
 LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES
->AMP_3|Melittin|Apis_mellifera|Venom_peptide
+>Melittin|Apis_mellifera|Venom_peptide
 GIGAVLKVLTTGLPALISWIKRKRQQ
->AMP_4|Cecropin_A|Hyalophora_cecropia|Antimicrobial_peptide
-KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK
->AMP_5|Indolicidin|Bos_taurus|Trp_Pro_rich
-ILPWKWPWWPWRR
->Non_AMP_1|Insulin_Chain_B|Homo_sapiens|Peptide_hormone
+>Insulin_Chain_B|Homo_sapiens|Peptide_hormone
 FVNQHLCGSHLVEALYLVCGERGFFYTPKT
->Non_AMP_2|Glucagon|Homo_sapiens|Peptide_hormone
+>Glucagon|Homo_sapiens|Peptide_hormone
 HSQGTFTSDYSKYLDSRRAQDFVQWLMNT
->Non_AMP_3|Somatostatin-14|Homo_sapiens|Neuropeptide
-AGCKNFFWKTFTSC
->Non_AMP_4|Vasoactive_intestinal_peptide|Homo_sapiens|Neuropeptide
-HSDAVFTDNYTRLRKQMAVKKYLNSILN
->Non_AMP_5|Ubiquitin|Homo_sapiens|Protein_degradation_tag
-MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG`;
+>Vasoactive_intestinal_peptide|Homo_sapiens|Neuropeptide
+HSDAVFTDNYTRLRKQMAVKKYLNSILN`;
 
+const VALID_AA = /^[ACDEFGHIKLMNPQRSTVWYBXZUOJ*-]+$/i;
 let lastData = null;
 
+// ── Server status ──────────────────────────────────────────────
+async function checkServerStatus() {
+  const dot = document.getElementById('statusDot');
+  try {
+    const r = await fetch('/health', { cache: 'no-cache' });
+    if (r.ok) { dot.classList.add('online');  dot.title = 'Server online'; }
+    else       { dot.classList.add('offline'); dot.title = 'Server error';  }
+  } catch(e) {
+    dot.classList.add('offline'); dot.title = 'Server offline';
+  }
+}
+checkServerStatus();
+
+// ── Counter ────────────────────────────────────────────────────
+function updateCounter() {
+  const n = (document.getElementById('fasta').value.match(/^>/gm) || []).length;
+  document.getElementById('seqCounter').textContent =
+    n > 0 ? n + ' sequence' + (n === 1 ? '' : 's') : '';
+}
+
+// ── Validation ─────────────────────────────────────────────────
+function validateFasta() {
+  const text  = document.getElementById('fasta').value.trim();
+  const errEl = document.getElementById('validationErr');
+  if (!text) { errEl.textContent = ''; return true; }
+
+  const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);
+  if (!lines[0].startsWith('>')) {
+    errEl.textContent = 'Invalid format: first line must start with >.';
+    return false;
+  }
+
+  let seq = '', headers = 0;
+  for (const line of lines) {
+    if (line.startsWith('>')) {
+      if (seq) {
+        if (seq.length < 5) { errEl.textContent = 'Sequence too short (min 5 residues).'; return false; }
+        if (!VALID_AA.test(seq)) { errEl.textContent = 'Invalid characters in sequence.'; return false; }
+      }
+      seq = ''; headers++;
+    } else {
+      seq += line;
+    }
+  }
+  if (seq) {
+    if (seq.length < 5) { errEl.textContent = 'Sequence too short (min 5 residues).'; return false; }
+    if (!VALID_AA.test(seq)) { errEl.textContent = 'Invalid characters in sequence.'; return false; }
+  }
+  if (!headers) { errEl.textContent = 'No valid FASTA sequences found.'; return false; }
+  errEl.textContent = '';
+  return true;
+}
+
+// ── File upload ────────────────────────────────────────────────
+function handleFileUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('fasta').value = ev.target.result;
+    updateCounter();
+    validateFasta();
+  };
+  reader.readAsText(file);
+}
+
+// ── Helpers ────────────────────────────────────────────────────
 function loadExample() {
   document.getElementById('fasta').value = EXAMPLE;
+  updateCounter();
+  validateFasta();
 }
 
 function clearAll() {
   document.getElementById('fasta').value = '';
   document.getElementById('results').innerHTML = '';
   document.getElementById('status').textContent = '';
+  document.getElementById('seqCounter').textContent = '';
+  document.getElementById('validationErr').textContent = '';
+  document.getElementById('fileInput').value = '';
   lastData = null;
 }
 
+// ── Prediction ─────────────────────────────────────────────────
 async function runPrediction() {
-  const fasta = document.getElementById('fasta').value.trim();
-  const model = document.getElementById('model').value;
-  const btn = document.getElementById('runBtn');
+  if (!validateFasta()) return;
+  const fasta  = document.getElementById('fasta').value.trim();
+  const model  = document.getElementById('model').value;
+  const btn    = document.getElementById('runBtn');
   const status = document.getElementById('status');
   const results = document.getElementById('results');
 
@@ -157,16 +261,15 @@ async function runPrediction() {
 
   btn.disabled = true;
   status.textContent = 'Running prediction...';
-  results.innerHTML = '';
+  results.innerHTML  = '';
 
   const form = new FormData();
   form.append('fasta_sequence', fasta);
   form.append('model', model);
 
   try {
-    const res = await fetch('/predict', { method: 'POST', body: form });
+    const res  = await fetch('/predict', { method: 'POST', body: form });
     const data = await res.json();
-
     if (data.error) {
       status.innerHTML = '<span class="err">Error: ' + data.error + '</span>';
     } else {
@@ -181,45 +284,98 @@ async function runPrediction() {
   }
 }
 
+// ── Render results ─────────────────────────────────────────────
 function renderResults(data) {
-  const preds = data.predictions;
+  const preds  = data.predictions;
   const ampKey = Object.keys(preds[0]).find(k => k.startsWith('pred_') || k === 'ensemble_prediction');
   const probKey = Object.keys(preds[0]).find(k => k.includes('prob'));
 
-  const amps = preds.filter(r => r[ampKey] === 1 || r[ampKey] === true).length;
+  const amps  = preds.filter(r => r[ampKey] === 1 || r[ampKey] === true).length;
   const total = preds.length;
 
-  let rows = preds.map(r => {
-    const isAmp = r[ampKey] === 1 || r[ampKey] === true;
-    const prob = probKey ? (r[probKey] * 100).toFixed(1) + '%' : '—';
-    const label = isAmp ? '<span class="amp">AMP</span>' : '<span class="non">non-AMP</span>';
-    return `<tr><td>${r.ID || r.id || '—'}</td><td>${r.sequence || '—'}</td><td>${label}</td><td>${prob}</td></tr>`;
-  }).join('');
+  function makeRow(r) {
+    const isAmp  = r[ampKey] === 1 || r[ampKey] === true;
+    const prob   = probKey ? r[probKey] : null;
+    const pct    = prob !== null ? (prob * 100).toFixed(1) + '%' : '—';
+    const color  = isAmp ? '#059669' : '#dc2626';
+    const fill   = prob !== null ? (prob * 100).toFixed(1) + '%' : '0%';
+    const barHtml = prob !== null
+      ? '<span class="prob-bar"><span class="prob-fill" style="width:' + fill + ';background:' + color + ';"></span></span><span class="prob-text">' + pct + '</span>'
+      : '—';
+    const label = isAmp
+      ? '<span class="amp">AMP</span>'
+      : '<span class="non">non-AMP</span>';
+    return '<tr class="' + (isAmp ? 'r-amp' : 'r-non') + '"><td>' +
+      (r.ID || r.id || '—') + '</td><td>' +
+      (r.sequence || '—') + '</td><td>' +
+      label + '</td><td class="prob-cell">' +
+      barHtml + '</td></tr>';
+  }
 
-  document.getElementById('results').innerHTML = `
-    <div class="summary">
-      <label>Results — ${data.model}</label>
-      <div class="summary-grid">
-        <div class="stat"><div class="stat-val">${total}</div><div class="stat-label">sequences</div></div>
-        <div class="stat"><div class="stat-val" style="color:#059669">${amps}</div><div class="stat-label">predicted AMP</div></div>
-        <div class="stat"><div class="stat-val" style="color:#dc2626">${total - amps}</div><div class="stat-label">predicted non-AMP</div></div>
-      </div>
-    </div>
-    <table>
-      <thead><tr><th>ID</th><th>Sequence</th><th>Prediction</th><th>Prob. AMP</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-    <div class="dl"><button onclick="downloadCSV()">download CSV</button></div>`;
+  document.getElementById('results').innerHTML =
+    '<div class="summary">' +
+      '<label>Results — ' + data.model + '</label>' +
+      '<div class="summary-grid">' +
+        '<div class="stat"><div class="stat-val">' + total + '</div><div class="stat-label">sequences</div></div>' +
+        '<div class="stat"><div class="stat-val" style="color:#059669">' + amps + '</div><div class="stat-label">predicted AMP</div></div>' +
+        '<div class="stat"><div class="stat-val" style="color:#dc2626">' + (total - amps) + '</div><div class="stat-label">predicted non-AMP</div></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="filter-row">' +
+      '<button class="filter-btn active" id="fAll" onclick="applyFilter(\'all\')">All</button>' +
+      '<button class="filter-btn" id="fAmp" onclick="applyFilter(\'amp\')">AMP only</button>' +
+      '<button class="filter-btn" id="fNon" onclick="applyFilter(\'non\')">non-AMP only</button>' +
+    '</div>' +
+    '<table id="tbl">' +
+      '<thead><tr><th>ID</th><th>Sequence</th><th>Prediction</th><th>Prob. AMP</th></tr></thead>' +
+      '<tbody>' + preds.map(makeRow).join('') + '</tbody>' +
+    '</table>' +
+    '<div class="dl">' +
+      '<button onclick="downloadCSV()">download CSV</button>' +
+      '<button id="copyBtn" onclick="copyTable()">copy table</button>' +
+    '</div>';
 }
 
+// ── Filter ─────────────────────────────────────────────────────
+function applyFilter(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  const ids = { all: 'fAll', amp: 'fAmp', non: 'fNon' };
+  document.getElementById(ids[type]).classList.add('active');
+  document.querySelectorAll('#tbl tbody tr').forEach(row => {
+    if (type === 'all') row.style.display = '';
+    else if (type === 'amp') row.style.display = row.classList.contains('r-amp') ? '' : 'none';
+    else row.style.display = row.classList.contains('r-non') ? '' : 'none';
+  });
+}
+
+// ── Download CSV ───────────────────────────────────────────────
 function downloadCSV() {
   if (!lastData) return;
   const keys = Object.keys(lastData[0]);
-  const csv = [keys.join(','), ...lastData.map(r => keys.map(k => JSON.stringify(r[k] ?? '')).join(','))].join('\\n');
+  const csv  = [
+    keys.join(','),
+    ...lastData.map(r => keys.map(k => JSON.stringify(r[k] ?? '')).join(','))
+  ].join('\\n');
   const blob = new Blob([csv], { type: 'text/csv' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'ampidentifier_' + new Date().toISOString().slice(0,10) + '.csv';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ampidentifier_' + new Date().toISOString().slice(0, 10) + '.csv';
   a.click();
+}
+
+// ── Copy table ─────────────────────────────────────────────────
+function copyTable() {
+  if (!lastData) return;
+  const keys = Object.keys(lastData[0]);
+  const tsv  = [
+    keys.join('\\t'),
+    ...lastData.map(r => keys.map(k => r[k] ?? '').join('\\t'))
+  ].join('\\n');
+  navigator.clipboard.writeText(tsv).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'copied!';
+    setTimeout(() => btn.textContent = 'copy table', 1500);
+  }).catch(() => alert('Copy not supported in this browser.'));
 }
 </script>
 </body>
@@ -231,10 +387,15 @@ def index():
     return render_template_string(PAGE)
 
 
+@app.route('/health')
+def health():
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        fasta_text = request.form.get('fasta_sequence', '').strip()
+        fasta_text   = request.form.get('fasta_sequence', '').strip()
         model_choice = request.form.get('model', 'ensemble')
 
         if not fasta_text:
@@ -261,7 +422,9 @@ def predict():
                 external_model_paths=[]
             )
 
-            predictions_df = pd.read_csv(os.path.join(output_dir, 'prediction_comparison_report.csv'))
+            predictions_df = pd.read_csv(
+                os.path.join(output_dir, 'prediction_comparison_report.csv')
+            )
 
             return jsonify({
                 'model': model_choice,
