@@ -144,7 +144,7 @@ PAGE = """<!DOCTYPE html>
   .modal-submit { background: #1a1a1a; color: #fff; border: none; font-size: 0.82rem; padding: 10px 22px; font-family: 'Roboto Mono', monospace; cursor: pointer; border-radius: 4px; font-weight: bold; }
   .modal-submit:hover { background: #333; }
   .feedback-link { color: #999; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; padding: 0; }
-  .feedback-link:hover { color: #333; }
+  .feedback-link:hover { color: #333; background: none; }
   /* ── Logo strip ── */
   .logo-strip { margin-top: 32px; padding-top: 24px; border-top: 1px solid #f0f0f0; }
   .logo-group { margin-bottom: 18px; }
