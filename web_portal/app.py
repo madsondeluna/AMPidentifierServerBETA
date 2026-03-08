@@ -52,7 +52,7 @@ PAGE = """<!DOCTYPE html>
   .notice { font-size: 0.75rem; color: #999; border-left: 2px solid #ddd; padding: 8px 12px; margin-bottom: 32px; line-height: 1.6; }
   .notice a { color: #555; text-decoration: underline; }
   .notice a:hover { color: #111; }
-  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #e8e8e8; font-size: 0.7rem; color: #aaa; line-height: 1.8; }
+  footer { margin-top: 32px; padding-top: 24px; border-top: 1px solid #e8e8e8; font-size: 0.7rem; color: #aaa; line-height: 1.8; }
   footer a { color: #999; text-decoration: underline; }
   footer a:hover { color: #333; }
   .label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
@@ -86,8 +86,8 @@ PAGE = """<!DOCTYPE html>
   }
   button:hover { background: #333; }
   button:disabled { background: #ccc; color: #888; cursor: not-allowed; }
-  #status { font-size: 0.78rem; color: #999; margin-top: 20px; min-height: 18px; }
-  #results { margin-top: 32px; }
+  #status { font-size: 0.78rem; color: #999; margin-top: 12px; min-height: 0; }
+  #results { margin-top: 20px; }
   .summary { background: #f7f7f7; border: 1px solid #e8e8e8; border-radius: 4px; padding: 20px; margin-bottom: 20px; }
   .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
   .stat { text-align: center; }
