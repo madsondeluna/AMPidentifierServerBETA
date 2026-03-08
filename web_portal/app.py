@@ -52,7 +52,7 @@ PAGE = """<!DOCTYPE html>
   .notice { font-size: 0.75rem; color: #999; border-left: 2px solid #ddd; padding: 8px 12px; margin-bottom: 32px; line-height: 1.6; }
   .notice a { color: #555; text-decoration: underline; }
   .notice a:hover { color: #111; }
-  footer { margin-top: 32px; padding-top: 24px; border-top: 1px solid #e8e8e8; font-size: 0.7rem; color: #aaa; line-height: 1.8; }
+  footer { margin-top: 32px; padding-top: 24px; border-top: 1px solid #e8e8e8; font-size: 0.63rem; color: #aaa; line-height: 1.8; }
   footer a { color: #999; text-decoration: underline; }
   footer a:hover { color: #333; }
   .label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
