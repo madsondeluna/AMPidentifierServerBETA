@@ -216,7 +216,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
         </div>
       </div>
       <div class="logo-group">
-        <div class="logo-group-label">Development department</div>
+        <div class="logo-group-label">Research group</div>
         <div class="logo-row">
           <img src="/img/lgbv.png" alt="Laboratório de Genética e Biotecnologia Vegetal" class="logo-lgbv">
         </div>
