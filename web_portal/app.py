@@ -26,7 +26,7 @@ def _get_version():
 
 VERSION = _get_version()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../img', static_url_path='/img')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 PAGE = """<!DOCTYPE html>
@@ -145,6 +145,14 @@ PAGE = """<!DOCTYPE html>
   .modal-submit:hover { background: #333; }
   .feedback-link { color: #999; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; padding: 0; }
   .feedback-link:hover { color: #333; }
+  /* ── Logo strip ── */
+  .logo-strip { margin-top: 32px; padding-top: 24px; border-top: 1px solid #f0f0f0; }
+  .logo-group { margin-bottom: 18px; }
+  .logo-group-label { font-size: 0.62rem; color: #ccc; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .logo-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .logo-row img { height: 36px; width: auto; object-fit: contain; filter: grayscale(20%); opacity: 0.82; transition: opacity 0.2s, filter 0.2s; }
+  .logo-row img:hover { opacity: 1; filter: grayscale(0%); }
+  .logo-row img.logo-lgbv { height: 32px; }
 </style>
 </head>
 <body>
@@ -190,6 +198,29 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
     GitHub repository: <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">https://github.com/madsondeluna/AMPIdentifier</a></p>
     <p style="margin-top:8px;">This tool is officially registered with the <strong style="color:#555;">INPI &ndash; Instituto Nacional da Propriedade Industrial</strong> (Brazilian National Institute of Industrial Property), Registration No. <strong style="color:#555;">BR 51 2025 005859-4</strong>. It is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratório de Genética e Biotecnologia Vegetal (LGBV)</strong>.</p>
     <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <button class="feedback-link" onclick="openFeedback()">Report issue / Suggest improvement</button> &nbsp;·&nbsp; <span style="color:#bbb;">v{{ version }}</span></p>
+
+    <div class="logo-strip">
+      <div class="logo-group">
+        <div class="logo-group-label">Institutions</div>
+        <div class="logo-row">
+          <img src="/img/ufpe.png" alt="Universidade Federal de Pernambuco">
+          <img src="/img/ufmg.png" alt="Universidade Federal de Minas Gerais">
+        </div>
+      </div>
+      <div class="logo-group">
+        <div class="logo-group-label">Funding</div>
+        <div class="logo-row">
+          <img src="/img/facepe.png" alt="FACEPE">
+          <img src="/img/fapemig.png" alt="FAPEMIG">
+        </div>
+      </div>
+      <div class="logo-group">
+        <div class="logo-group-label">Development department</div>
+        <div class="logo-row">
+          <img src="/img/lgbv.png" alt="Laboratório de Genética e Biotecnologia Vegetal" class="logo-lgbv">
+        </div>
+      </div>
+    </div>
   </footer>
 </div>
 
