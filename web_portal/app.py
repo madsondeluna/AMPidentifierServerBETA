@@ -146,11 +146,11 @@ PAGE = """<!DOCTYPE html>
   .feedback-link { color: #999; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; font-weight: normal; padding: 0; }
   .feedback-link:hover { color: #333; background: none; }
   /* ── Logo strip ── */
-  .logo-strip { margin-top: 32px; padding-top: 24px; border-top: 1px solid #f0f0f0; display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
-  .logo-group { display: flex; flex-direction: column; }
+  .logo-strip { margin-top: 32px; padding-top: 24px; border-top: 1px solid #f0f0f0; display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; justify-content: center; }
+  .logo-group { display: flex; flex-direction: column; align-items: center; }
   .logo-group + .logo-group { border-left: 1px solid #f0f0f0; padding-left: 32px; }
-  .logo-group-label { font-size: 0.62rem; color: #ccc; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
-  .logo-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .logo-group-label { font-size: 0.62rem; color: #ccc; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; text-align: center; }
+  .logo-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
   .logo-row img { height: 36px; width: auto; object-fit: contain; filter: grayscale(20%); opacity: 0.82; transition: opacity 0.2s, filter 0.2s; }
   .logo-row img:hover { opacity: 1; filter: grayscale(0%); }
   .logo-row img.logo-lgbv { height: 32px; }
