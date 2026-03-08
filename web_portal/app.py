@@ -35,10 +35,13 @@ PAGE = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMPidentifier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   html { font-size: 17px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Courier New', monospace; background: #ffffff; color: #1a1a1a; min-height: 100vh; padding: 48px 24px; }
+  body { font-family: 'Roboto Mono', monospace; background: #ffffff; color: #1a1a1a; min-height: 100vh; padding: 48px 24px; }
   .wrap { max-width: 760px; margin: 0 auto; }
   .title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
   h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.1em; color: #0f0f0f; }
@@ -57,7 +60,7 @@ PAGE = """<!DOCTYPE html>
   .seq-counter { font-size: 0.72rem; color: #bbb; }
   textarea {
     width: 100%; height: 180px; background: #f7f7f7; border: 1px solid #e0e0e0;
-    color: #1a1a1a; font-family: 'Courier New', monospace; font-size: 0.82rem;
+    color: #1a1a1a; font-family: 'Roboto Mono', monospace; font-size: 0.82rem;
     padding: 14px; resize: vertical; outline: none; border-radius: 4px;
   }
   textarea:focus { border-color: #bbb; }
@@ -66,19 +69,19 @@ PAGE = """<!DOCTYPE html>
   .upload-btn {
     background: #555555; color: #ffffff; border: none;
     font-size: 0.82rem; padding: 10px 28px; font-weight: normal;
-    font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
+    font-family: 'Roboto Mono', monospace; cursor: pointer; border-radius: 4px;
   }
   .upload-btn:hover { background: #444444; }
   #fileInput { display: none; }
   .row { display: flex; gap: 12px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
   select {
     background: #f7f7f7; border: 1px solid #e0e0e0; color: #1a1a1a;
-    font-family: 'Courier New', monospace; font-size: 0.82rem; padding: 10px 14px;
+    font-family: 'Roboto Mono', monospace; font-size: 0.82rem; padding: 10px 14px;
     border-radius: 4px; outline: none;
   }
   button {
     background: #1a1a1a; color: #ffffff; border: none; padding: 10px 28px;
-    font-family: 'Courier New', monospace; font-size: 0.82rem; cursor: pointer;
+    font-family: 'Roboto Mono', monospace; font-size: 0.82rem; cursor: pointer;
     border-radius: 4px; font-weight: bold; letter-spacing: 0.05em;
   }
   button:hover { background: #333; }
@@ -94,7 +97,7 @@ PAGE = """<!DOCTYPE html>
   .filter-btn {
     background: #6b7280; color: #ffffff; border: none;
     font-size: 0.82rem; padding: 10px 28px; font-weight: normal;
-    font-family: 'Courier New', monospace; cursor: pointer; border-radius: 4px;
+    font-family: 'Roboto Mono', monospace; cursor: pointer; border-radius: 4px;
   }
   .filter-btn:hover { background: #4b5563; }
   .filter-btn.active { background: #1a1a1a; color: #fff; }
@@ -116,6 +119,32 @@ PAGE = """<!DOCTYPE html>
   .example-btn:hover { background: #1d4ed8; }
   .clear-btn { background: #dc2626; color: #ffffff; border: none; font-size: 0.82rem; padding: 10px 28px; font-weight: normal; }
   .clear-btn:hover { background: #b91c1c; }
+  /* ── Feedback modal ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+    z-index: 1000; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 6px;
+    padding: 32px; width: 100%; max-width: 480px; font-family: 'Roboto Mono', monospace;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .modal h2 { font-size: 1rem; font-weight: normal; letter-spacing: 0.08em; margin-bottom: 20px; }
+  .modal label { font-size: 0.73rem; color: #999; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 6px; margin-top: 16px; }
+  .modal select, .modal textarea {
+    width: 100%; background: #f7f7f7; border: 1px solid #e0e0e0;
+    font-family: 'Roboto Mono', monospace; font-size: 0.82rem; padding: 10px 12px;
+    border-radius: 4px; outline: none; color: #1a1a1a;
+  }
+  .modal textarea { height: 120px; resize: vertical; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+  .modal-cancel { background: #f0f0f0; color: #555; border: none; font-size: 0.82rem; padding: 10px 22px; font-family: 'Roboto Mono', monospace; cursor: pointer; border-radius: 4px; }
+  .modal-cancel:hover { background: #e0e0e0; }
+  .modal-submit { background: #1a1a1a; color: #fff; border: none; font-size: 0.82rem; padding: 10px 22px; font-family: 'Roboto Mono', monospace; cursor: pointer; border-radius: 4px; font-weight: bold; }
+  .modal-submit:hover { background: #333; }
+  .feedback-link { color: #999; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; padding: 0; }
+  .feedback-link:hover { color: #333; }
 </style>
 </head>
 <body>
@@ -160,8 +189,27 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
     AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
     GitHub repository: <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">https://github.com/madsondeluna/AMPIdentifier</a></p>
     <p style="margin-top:8px;">This tool is officially registered with the <strong style="color:#555;">INPI &ndash; Instituto Nacional da Propriedade Industrial</strong> (Brazilian National Institute of Industrial Property), Registration No. <strong style="color:#555;">BR 51 2025 005859-4</strong>. It is a property of the <strong style="color:#555;">Universidade Federal de Pernambuco (UFPE)</strong> and the <strong style="color:#555;">Laboratório de Genética e Biotecnologia Vegetal (LGBV)</strong>.</p>
-    <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/madsondeluna/AMPidentifierServerBETA/issues" target="_blank">Report an issue</a> &nbsp;·&nbsp; <span style="color:#bbb;">v{{ version }}</span></p>
+    <p style="margin-top:8px;">Developer: <a href="mailto:madsondeluna@gmail.com">madsondeluna@gmail.com</a> &nbsp;·&nbsp; <button class="feedback-link" onclick="openFeedback()">Report issue / Suggest improvement</button> &nbsp;·&nbsp; <span style="color:#bbb;">v{{ version }}</span></p>
   </footer>
+</div>
+
+<!-- Feedback modal -->
+<div class="modal-overlay" id="feedbackOverlay" onclick="closeFeedbackOutside(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+    <h2 id="feedbackTitle">Report issue / Suggest improvement</h2>
+    <label for="feedbackType">Type</label>
+    <select id="feedbackType">
+      <option value="bug">Bug report</option>
+      <option value="feature">Feature request</option>
+      <option value="other">Other</option>
+    </select>
+    <label for="feedbackMsg">Description</label>
+    <textarea id="feedbackMsg" placeholder="Describe the issue or your suggestion..."></textarea>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeFeedback()">Cancel</button>
+      <button class="modal-submit" onclick="submitFeedback()">Open on GitHub</button>
+    </div>
+  </div>
 </div>
 
 {% raw %}<script>
@@ -399,6 +447,31 @@ function copyTable() {
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy table', 1500);
   }).catch(() => alert('Copy not supported in this browser.'));
+}
+
+// ── Feedback modal ─────────────────────────────────────────────
+function openFeedback() {
+  document.getElementById('feedbackOverlay').classList.add('open');
+  document.getElementById('feedbackMsg').focus();
+}
+function closeFeedback() {
+  document.getElementById('feedbackOverlay').classList.remove('open');
+  document.getElementById('feedbackMsg').value = '';
+}
+function closeFeedbackOutside(e) {
+  if (e.target === document.getElementById('feedbackOverlay')) closeFeedback();
+}
+function submitFeedback() {
+  const type = document.getElementById('feedbackType').value;
+  const msg  = document.getElementById('feedbackMsg').value.trim();
+  const labels = { bug: 'bug', feature: 'enhancement', other: 'question' };
+  const titleMap = { bug: '[Bug] ', feature: '[Feature] ', other: '[Other] ' };
+  const title = encodeURIComponent(titleMap[type] + (msg.split('\\n')[0].slice(0, 60) || 'User report'));
+  const body  = encodeURIComponent(msg || '(no description provided)');
+  const label = encodeURIComponent(labels[type]);
+  const url = 'https://github.com/madsondeluna/AMPidentifierServerBETA/issues/new?title=' + title + '&body=' + body + '&labels=' + label;
+  window.open(url, '_blank', 'noopener,noreferrer');
+  closeFeedback();
 }
 </script>{% endraw %}
 </body>

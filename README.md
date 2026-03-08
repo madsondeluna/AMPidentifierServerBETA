@@ -9,6 +9,8 @@
 [![INPI](https://img.shields.io/badge/INPI-BR%2051%202025%20005859--4-green.svg)](https://www.gov.br/inpi)
 [![Status](https://img.shields.io/badge/status-beta-orange.svg)]()
 
+![AMPidentifier workflow](img/workflow.png)
+
 ## Live application
 
 **[https://ampidentifierserver.onrender.com](https://ampidentifierserver.onrender.com)**
@@ -54,6 +56,29 @@ The prediction engine is the same ensemble ML pipeline (RF + SVM + Gradient Boos
 >SequenceID|Protein_name|Organism|Description
 AMINOACIDSEQUENCE
 ```
+
+## Interpretation note and known limitations
+
+Predictions are computed from **physicochemical and compositional descriptors** derived from the primary amino acid sequence. For higher predictive power, use **Ensemble mode (RF + SVM + GB)**, which combines three independent classifiers by majority vote and achieves:
+
+| Metric | Value |
+|---|---|
+| **Accuracy** | 87.47% |
+| **Sensitivity** | 85.96% |
+| **Specificity** | 88.98% |
+
+> Bear in mind that proteins whose primary function is not antimicrobial activity may still harbour potential antimicrobial features in specific sequence regions.
+
+### Special cases and possible errors
+
+| Case | Expected behavior |
+|---|---|
+| Very short sequences (< 5 residues) | Rejected at input validation — FASTA must contain at least 5 amino acids per sequence |
+| Non-standard amino acid characters | Sequences with characters outside the standard 20-letter code may trigger a validation error or produce unreliable predictions |
+| Long proteins (> ~50 residues) | Descriptors are computed over the full sequence; AMP features concentrated in sub-regions may be diluted, leading to false negatives |
+| Highly disordered or repetitive sequences | May yield extreme probability scores that do not reflect true antimicrobial potential |
+| Multimeric or chimeric constructs | Not supported; each FASTA entry is treated as a standalone peptide/protein |
+| Batch size | No hard limit is enforced, but very large batches may cause the server to time out; use the [CLI version](https://github.com/madsondeluna/AMPIdentifier) for large-scale runs |
 
 ## Original CLI project
 
