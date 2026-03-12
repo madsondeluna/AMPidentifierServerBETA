@@ -163,7 +163,7 @@ PAGE = """<!DOCTYPE html>
     <span class="status-dot" id="statusDot" title="Checking server..."></span>
   </div>
   <p class="sub">A Python-based toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.</p>
-  <p class="notice">For advanced parameter control use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a> or install via <a href="https://pypi.org/project/ampidentifier/" target="_blank">PyPI</a>: <code>pip install ampidentifier</code></p>
+  <p class="notice">For advanced parameter control use the <a href="https://github.com/madsondeluna/AMPIdentifier" target="_blank">CLI version</a> or install via <a href="https://pypi.org/project/ampidentifier/" target="_blank">PyPI</a>: <code style="background:#f0f0f0;color:#444;padding:2px 8px;border-radius:4px;font-size:0.85em;">pip install ampidentifier</code></p>
 
   <div class="label-row">
     <label>FASTA sequences</label>
