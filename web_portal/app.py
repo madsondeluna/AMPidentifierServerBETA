@@ -206,6 +206,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
         <div class="logo-row">
           <img src="/img/ufpe.png" alt="Universidade Federal de Pernambuco">
           <img src="/img/ufmg.png" alt="Universidade Federal de Minas Gerais">
+          <img src="/img/upe-logo.png" alt="Universidade de Pernambuco">
         </div>
       </div>
       <div class="logo-group">
