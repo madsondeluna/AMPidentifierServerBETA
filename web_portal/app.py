@@ -222,12 +222,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
           <img src="/img/lgbv.png" alt="Laboratório de Genética e Biotecnologia Vegetal" class="logo-lgbv">
         </div>
       </div>
-      <div class="logo-group">
-        <div class="logo-group-label">Intellectual property</div>
-        <div class="logo-row">
-          <img src="/img/inpi.png" alt="INPI - Instituto Nacional da Propriedade Industrial">
-        </div>
-      </div>
+
     </div>
     <p style="margin-top: 28px; text-align: center; font-size: 0.68rem; color: #ccc; letter-spacing: 0.04em;">Visit <a href="https://github.com/madsondeluna" target="_blank" style="color:#bbb;">https://github.com/madsondeluna</a> for more projects.</p>
   </footer>
