@@ -229,7 +229,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
         </div>
       </div>
     </div>
-    <p style="margin-top: 28px; text-align: center; font-size: 0.68rem; color: #ccc; letter-spacing: 0.04em;">Developed with <span style="color:#1a1a1a;">&#9829;</span>, where biological data meets cloud computing.</p>
+    <p style="margin-top: 28px; text-align: center; font-size: 0.68rem; color: #ccc; letter-spacing: 0.04em;">Visit <a href="https://github.com/madsondeluna" target="_blank" style="color:#bbb;">https://github.com/madsondeluna</a> for more projects.</p>
   </footer>
 </div>
 
