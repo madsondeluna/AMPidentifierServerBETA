@@ -218,7 +218,7 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
         <div class="logo-group-label">Funding</div>
         <div class="logo-row">
           <img src="/img/facepe.png"  alt="FACEPE"  style="height:38px;">
-          <img src="/img/fapemig.png" alt="FAPEMIG" style="height:48px;">
+          <img src="/img/fapemig.png" alt="FAPEMIG" style="height:48px; margin: -3px -17px 0;">
         </div>
       </div>
       <div class="logo-group">
