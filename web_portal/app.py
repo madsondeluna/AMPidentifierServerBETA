@@ -146,10 +146,10 @@ PAGE = """<!DOCTYPE html>
   .feedback-link { color: #999; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; font-weight: normal; padding: 0; }
   .feedback-link:hover { color: #333; background: none; }
   /* ── Logo strip ── */
-  .logo-strip { margin-top: 20px; padding-top: 16px; border-top: 1px solid #f0f0f0; display: flex; flex-wrap: nowrap; align-items: flex-start; gap: 16px; overflow-x: auto; }
+  .logo-strip { margin-top: 20px; padding-top: 16px; border-top: 1px solid #f0f0f0; display: flex; flex-wrap: nowrap; align-items: flex-start; gap: 10px; overflow-x: auto; }
   .logo-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .logo-group-label { font-size: 0.58rem; letter-spacing: 0.10em; text-transform: uppercase; color: #b0b8c8; }
-  .logo-row { display: flex; align-items: flex-start; gap: 12px; }
+  .logo-row { display: flex; align-items: flex-start; gap: 6px; }
   .logo-row img { width: auto; object-fit: contain; filter: grayscale(30%); opacity: 0.75; transition: opacity 0.2s, filter 0.2s; }
   .logo-row img:hover { opacity: 1; filter: grayscale(0%); }
 </style>
