@@ -12,9 +12,9 @@ joblib==1.3.2
 # Bioinformatics
 biopython==1.83
 
-# AMP-specific feature calculation
-modlAMP==4.3.0
-mysql-connector-python==8.0.33
+# AMP-specific feature calculation (installed via build.sh with --no-deps to avoid
+# mysql-connector-python==8.0.17 which was yanked from PyPI)
+# modlAMP==4.3.0 is installed separately in build.sh
 
 # Testing (not needed in production, but harmless to include)
 pytest
