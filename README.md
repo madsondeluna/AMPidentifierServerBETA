@@ -128,8 +128,8 @@ This application is a property of the **Universidade Federal de Pernambuco (UFPE
 
 ## Citation
 
-Luna-Aragão, M. A., da Silva, R. L., Bezerra-Neto, J.P., Santos-Silva, C. A. & Benko-Iseppon, A. M. (2025).
-AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning and physicochemical descriptors.
+Luna-Aragão, M. A., da Silva, R. L., Bezerra Neto, J. P., dos Santos-Silva, C. A., da Silva Santos, D. E. & Benko-Iseppon, A. M. (2025).
+AMPidentifier: A Cross-Platform Ensemble Toolkit for Antimicrobial Peptide Prediction.
 GitHub repository. https://github.com/madsondeluna/AMPIdentifier
 
 ## License

@@ -155,7 +155,7 @@ def run_prediction_pipeline(input_file: str, output_dir: str, internal_model_typ
 
     # Citation message
     print("If this tool supports your research, please cite:")
-    print("Luna-Aragão, M. A., da Silva, R. L., Bezerra-Neto, J.P., Santos-Silva, C. A. & Benko-Iseppon, A. M. (2025).")
-    print("AMPidentifier: A Python toolkit for predicting antimicrobial peptides using ensemble machine learning.")
+    print("Luna-Aragão, M. A., da Silva, R. L., Bezerra Neto, J. P., dos Santos-Silva, C. A., da Silva Santos, D. E. & Benko-Iseppon, A. M. (2025).")
+    print("AMPidentifier: A Cross-Platform Ensemble Toolkit for Antimicrobial Peptide Prediction.")
     print("GitHub repository: https://github.com/madsondeluna/AMPIdentifier")
     print("="*80 + "\n")
