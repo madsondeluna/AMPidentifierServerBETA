@@ -146,14 +146,12 @@ PAGE = """<!DOCTYPE html>
   .feedback-link { color: #999; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; font-weight: normal; padding: 0; }
   .feedback-link:hover { color: #333; background: none; }
   /* ── Logo strip ── */
-  .logo-strip { margin-top: 32px; padding-top: 24px; border-top: 1px solid #f0f0f0; display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; justify-content: center; }
-  .logo-group { display: flex; flex-direction: column; align-items: center; }
-  .logo-group + .logo-group { border-left: 1px solid #f0f0f0; padding-left: 32px; }
-  .logo-group-label { font-size: 0.62rem; color: #ccc; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; text-align: center; }
-  .logo-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
-  .logo-row img { height: 36px; width: auto; object-fit: contain; filter: grayscale(20%); opacity: 0.82; transition: opacity 0.2s, filter 0.2s; }
+  .logo-strip { margin-top: 20px; padding-top: 16px; border-top: 1px solid #f0f0f0; display: flex; flex-wrap: nowrap; align-items: flex-start; gap: 16px; overflow-x: auto; }
+  .logo-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .logo-group-label { font-size: 0.58rem; letter-spacing: 0.10em; text-transform: uppercase; color: #b0b8c8; }
+  .logo-row { display: flex; align-items: center; gap: 12px; }
+  .logo-row img { width: auto; object-fit: contain; filter: grayscale(30%); opacity: 0.75; transition: opacity 0.2s, filter 0.2s; }
   .logo-row img:hover { opacity: 1; filter: grayscale(0%); }
-  .logo-row img.logo-lgbv { height: 32px; }
 </style>
 </head>
 <body>
@@ -204,25 +202,33 @@ KRIVQRIKDFLRNLVPRTES" oninput="updateCounter();validateFasta();"></textarea>
       <div class="logo-group">
         <div class="logo-group-label">Institutions</div>
         <div class="logo-row">
-          <img src="/img/ufpe.png" alt="Universidade Federal de Pernambuco">
-          <img src="/img/ufmg.png" alt="Universidade Federal de Minas Gerais">
-          <img src="/img/upe-logo.png" alt="Universidade de Pernambuco">
+          <img src="/img/ufpe.png"     alt="Universidade Federal de Pernambuco"   style="height:36px;">
+          <img src="/img/ufmg.png"     alt="Universidade Federal de Minas Gerais" style="height:34px;">
+          <img src="/img/upe-logo.png" alt="Universidade de Pernambuco"           style="height:34px;">
+        </div>
+      </div>
+      <div class="logo-group">
+        <div class="logo-group-label">Departments</div>
+        <div class="logo-row">
+          <img src="/img/dqf.png"   alt="Departamento de Química Fundamental" style="height:36px;">
+          <img src="/img/dgen.jpeg" alt="Departamento de Genética"            style="height:36px;">
         </div>
       </div>
       <div class="logo-group">
         <div class="logo-group-label">Funding</div>
         <div class="logo-row">
-          <img src="/img/facepe.png" alt="FACEPE">
-          <img src="/img/fapemig.png" alt="FAPEMIG">
+          <img src="/img/facepe.png"  alt="FACEPE"  style="height:38px;">
+          <img src="/img/fapemig.png" alt="FAPEMIG" style="height:38px;">
+          <img src="/img/capes.png"   alt="CAPES"   style="height:38px;">
         </div>
       </div>
       <div class="logo-group">
-        <div class="logo-group-label">Research group</div>
+        <div class="logo-group-label">Research groups</div>
         <div class="logo-row">
-          <img src="/img/lgbv.png" alt="Laboratório de Genética e Biotecnologia Vegetal" class="logo-lgbv">
+          <img src="/img/lgbv.png" alt="Laboratório de Genética e Biotecnologia Vegetal" style="height:34px;">
+          <img src="/img/lcm3.png" alt="LCM3"                                            style="height:34px;">
         </div>
       </div>
-
     </div>
     <p style="margin-top: 28px; text-align: center; font-size: 0.68rem; color: #ccc; letter-spacing: 0.04em;">Visit <a href="https://github.com/madsondeluna" target="_blank" style="color:#bbb;">https://github.com/madsondeluna</a> for more projects.</p>
   </footer>
