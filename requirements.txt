@@ -14,6 +14,7 @@ biopython==1.83
 
 # AMP-specific feature calculation
 modlAMP==4.3.0
+mysql-connector-python==8.0.33
 
 # Testing (not needed in production, but harmless to include)
 pytest
